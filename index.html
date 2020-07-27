@@ -57,10 +57,15 @@ var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/to
 }).addTo(map);
 
 
-// load Chicago Neighborhood Hardship Index File
-$.getJSON("ChicagoHardshipIndex.geojson",function(data){
+// load Chicago ELC GeoJSON File
+$.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 // L.geoJson function is used to parse geojson file and load on to map
-L.geoJson(data).addTo(map);
+L.geoJson(data, {
+    filter: colorFilter,
+    pointToLayer: function(feature, latlng) {
+        return new L.CircleMarker(latlng, {radius: 5, fillOpacity: 1, fillColor: '#FF6600'});
+    }
+	}).addTo(map);
 });
 
 
