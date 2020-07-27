@@ -57,16 +57,12 @@ var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/to
 }).addTo(map);
 
 
-// loading Chicago Neighborhoods GeoJSON file 
-$.getJSON("ChicagoNeighborhoods.geojson",function(data){
-L.geoJson(data).addTo(map);
-});
-
-// loading Early Childhood Center GeoJSON file 
-$.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
+// load Chicago Neighborhood Hardship Index File
+$.getJSON("ChicagoHardshipIndex.geojson",function(data){
 // L.geoJson function is used to parse geojson file and load on to map
 L.geoJson(data).addTo(map);
 });
+
 
 </script>
 
