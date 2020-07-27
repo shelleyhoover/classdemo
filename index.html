@@ -62,10 +62,11 @@ $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 	L.geoJSON(data, {
 		pointToLayer: function(feature, latlng) {
 			return new L.CircleMarker(latlng, 
-				{	radius: 5,
+				{	radius: 3,
 					fillOpacity: 1,
 					fillColor: 'red',
 				 	color: 'orange',
+				 	weight: .5, 
 				});
 		}
 	}).addTo(map);
