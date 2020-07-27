@@ -59,13 +59,16 @@ var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/to
 
 // load Chicago ELC GeoJSON File
 $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
-// L.geoJson function is used to parse geojson file and load on to map
-L.geoJson(data, {
-    pointToLayer: function(feature, latlng) {
-        return new L.CircleMarker(latlng, {radius: 5, fillOpacity: 1, fillColor: '#FF6600'});
-    }
+	L.geoJSON(data, {
+		pointToLayer: function(feature, latlng) {
+			return new L.CircleMarker(latlng, 
+				{	radius: 5,
+					fillOpacity: 1,
+					fillColor: '#FF6600'});
+		}
 	}).addTo(map);
 });
+
 
 
 </script>
