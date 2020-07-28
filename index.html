@@ -63,18 +63,22 @@ $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 		style: function(feature) {
 			var ageCheck = feature.properties.Ages_0_3;
 			if (ageCheck == "true") {
-				return {
-					fillColor: "blue",
-					color: "blue",
-					radius: 3, 
-				}
+				return new L.CircleMarker(latlng, 
+					{	radius: 3,
+						fillOpacity: 1,
+						fillColor: 'blue',
+						color: 'black',
+						weight: .5, 
+					});
 			}
 			else {
-				return {
-					fillColor: "red",
-					color: "red",
-					radius: 3, 
-				}
+				return new L.CircleMarker(latlng, 
+					{	radius: 3,
+						fillOpacity: 1,
+						fillColor: 'red',
+						color: 'black',
+						weight: .5, 
+					});
 			}
 		}, 
 		onEachFeature: function(feature, layer){
