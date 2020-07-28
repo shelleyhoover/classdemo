@@ -57,20 +57,20 @@ var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/to
 }).addTo(map);
 
 
-// 9:21 load Chicago ELC GeoJSON File
+//9:26  load Chicago ELC GeoJSON File
 $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 	L.geoJSON(data, {
   		style: function(feature){
 			var ageCheck = feature.properties.Ages_0_3;
-					if ( ageCheck == "true" ) fillColor = "blue"; {
+					if ( ageCheck == "true" ) {
 						return {
 							weight: 1,
 							radius: 3, 
                    			color: 'brown',
                     		fillColor: 'blue',
                     		fillOpacity: 0.6
-						};
-					};
+						}
+					}
 					else  {
 						return {
 							weight: 1,
@@ -78,8 +78,8 @@ $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
                    			color: 'brown',
                     		fillColor: 'red',
                     		fillOpacity: 0.6
-						};
-					};
+						}
+					}
 					
 		}, 
 		onEachFeature: function(feature, layer){
