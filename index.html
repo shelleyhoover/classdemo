@@ -56,33 +56,42 @@ var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/to
 	ext: 'png'
 }).addTo(map);
 
-
 // load Chicago ELC GeoJSON File
 $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 	L.geoJSON(data, {
-		pointToLayer: function(feature) {
-			var ageCheck = feature.Ages_0_3;
-			if ageCheck == "true" 
-				return {
-					fillColor: "blue",
-					color: "blue",
-					radius: 3, 
-				}
-			
-			else 
-				return {
-					fillColor: "red",
-					color: "red",
-					radius: 3, 
-				}
-			
+		pointToLayer: function(feature, latlng) {
+			return new L.CircleMarker(latlng, 
+				{	radius: 3,
+					fillOpacity: 1,
+					fillColor: 'red',
+					color: 'orange',
+					weight: .5, 
+				});
 		}, onEachFeature: function(feature, layer){
-			layer.bindPopup("<strong>"+ feature.properties.Site_Name + "</strong><br/>" + "Ages Served :" + feature.properties.Ages_Served + "<br/>" + "Accreditation: " + feature.properties.Accreditation)
+			layer.bindPopup("<strong>"+ feature.properties.Site_Name + "</strong><br/>" + "Ages Served :" + feature.properties.Ages_Served + "<br/>" + "Accreditation " + feature.properties.Accreditation)
 		}
 	}).addTo(map);
 });
 
 
+$.getJSON("ChicagoHardshipIndex.geojson",function(data){
+  	L.geoJson(data, {
+		style: function(feature){
+			var fillColor,
+			density = feature.properties.1_HI;
+				if ( density > 250 ) fillColor = "#006837";
+				else if ( density > 200 ) fillColor = "#31a354";
+				else if ( density > 150 ) fillColor = "#78c679";
+				else if ( density > 75 ) fillColor = "#c2e699";
+				else if ( density > 0 ) fillColor = "#ffffcc";
+				else fillColor = "#f7f7f7";  // no data
+				return { color: "#999", weight: 1, fillColor: fillColor, fillOpacity: .6 };
+				},
+				onEachFeature: function( feature, layer ){
+				    layer.bindPopup(  feature.properties.NUMPOINTS+ " parcels eligible for an ADU" )
+				}
+  					}  ).addTo(map);
+				}); 
 				 
 </script>
 
