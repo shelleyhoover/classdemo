@@ -67,7 +67,7 @@ $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 					else fillColor = "red";  
 					return { color: "#999", weight: 1, fillColor: fillColor, fillOpacity: .6 };
 		}, 
-		onEachFeature: function(feature, Layer){
+		onEachFeature: function(feature, layer){
 			layer.bindPopup("<strong>"+ feature.properties.Site_Name + "</strong><br/>" + "Ages Served :" + feature.properties.Ages_Served + "<br/>" + "Accreditation " + feature.properties.Accreditation)
 		}
 	}).addTo(map);
