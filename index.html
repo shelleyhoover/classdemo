@@ -70,12 +70,15 @@ $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 					fillColor: agesColor,
 					color: 'orange',
 					weight: .5, 
+					order: function(){
+						this.bringToFront();
+					},
 				});
 		},
 		onEachFeature: function(feature, layer){
 			layer.bindPopup("<strong>"+ feature.properties.Site_Name + "</strong><br/>" + "Ages Served :" + feature.properties.Ages_Served + "<br/>" + "Accreditation: " + feature.properties.Accreditation)
 		}
-			}).addTo(map).bringToFront(map);
+			}).addTo(map);
 		});
 				
 $.getJSON("ChicagoHardshipIndex.geojson", function(data){
