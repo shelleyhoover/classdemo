@@ -65,7 +65,7 @@ $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 			agesServed = feature.properties.Ages_0_3;
 				if ( agesServed == "true" ) agesColor = "blue";
 				else agesColor = "red";  
-				return pointToLayer: function(feature, latlng) {
+				return function(feature, latlng) {
 					return new L.CircleMarker(latlng, 
 						{	radius: 3,
 							fillOpacity: 1,
