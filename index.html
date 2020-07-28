@@ -61,24 +61,27 @@ var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/to
 $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 	L.geoJSON(data, {
 		style: function(feature, latlng) {
-			var ageCheck = feature.properties.Ages_0_3;
+			ageCheck = feature.properties.Ages_0_3;
 			if (ageCheck == "true") 
-				return new L.CircleMarker(latlng, 
-					{	radius: 3,
-						fillOpacity: 1,
-						fillColor: 'blue',
-						color: 'black',
-						weight: .5, 
-					});
+				return function(feature, latlng) {
+							return new L.CircleMarker(latlng, 
+								{	radius: 3,
+									fillOpacity: 1,
+									fillColor: 'blue',
+									color: 'orange',
+									weight: .5, 
+								});
+						}
 			else 
-				return new L.CircleMarker(latlng, 
-					{	radius: 3,
-						fillOpacity: 1,
-						fillColor: 'red',
-						color: 'black',
-						weight: .5, 
-					});
-		}, 
+				return function(feature, latlng) {
+							return new L.CircleMarker(latlng, 
+								{	radius: 3,
+									fillOpacity: 1,
+									fillColor: 'red',
+									color: 'orange',
+									weight: .5, 
+								});
+		}},  
 		onEachFeature: function(feature, layer){
 			layer.bindPopup("<strong>"+ feature.properties.Site_Name + "</strong><br/>" + "Ages Served :" + feature.properties.Ages_Served + "<br/>" + "Accreditation: " + feature.properties.Accreditation)
 		}
