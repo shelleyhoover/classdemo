@@ -71,7 +71,7 @@ $.getJSON("ChicagoHardshipIndex.geojson",function(data){
 				return { color: "#999", weight: 1, fillColor: conditionalColor, fillOpacity: .6 };
 				},
 				onEachFeature: function( feature, layer ){
-				    layer.bindPopup( "Neighborhood " + feature.properties.CA "<br/>" + "Hardship Index Score: " + feature.properties.HI )
+				    layer.bindPopup( "Neighborhood " + feature.properties.CA + "<br/>" + "Hardship Index Score: " + feature.properties.HI )
 				}
   					}  ).addTo(map);
 				}); 
