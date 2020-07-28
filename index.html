@@ -85,17 +85,22 @@ $.getJSON("ChicagoHardshipIndex.geojson", function(data){
 $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 	L.geoJSON(data, {
 		pointToLayer: function(feature, latlng) {
+			var agesColor;
+			var agesServed = feature.properties.Ages_0_3;
+			if ( agesServed == "true" ) agesColor = "blue";
+			else agesColor = "red";
 			return new L.CircleMarker(latlng, 
 				{	radius: 3,
 					fillOpacity: 1,
-					fillColor: 'red',
+					fillColor: agesColor,
 					color: 'orange',
 					weight: .5, 
 				});
-		}, onEachFeature: function(feature, layer){
-			layer.bindPopup("<strong>"+ feature.properties.Site_Name + "</strong><br/>" + "Ages Served :" + feature.properties.Ages_Served + "<br/>" + "Accreditation " + feature.properties.Accreditation)
+		},
+		onEachFeature: function(feature, layer){
+			layer.bindPopup("<strong>"+ feature.properties.Site_Name + "</strong><br/>" + "Ages Served :" + feature.properties.Ages_Served + "<br/>" + "Accreditation: " + feature.properties.Accreditation)
 		}
-	}).addTo(map);
+			}).addTo(map);
 });
 				
 
