@@ -78,7 +78,7 @@ $.getJSON("ChicagoHardshipIndex.geojson",function(data){
   	L.geoJson(data, {
 		style: function(feature){
 			var fillColor,
-			density = feature.properties.1_HI;
+			density = feature.properties.HI;
 				if ( density > 250 ) fillColor = "#006837";
 				else if ( density > 200 ) fillColor = "#31a354";
 				else if ( density > 150 ) fillColor = "#78c679";
