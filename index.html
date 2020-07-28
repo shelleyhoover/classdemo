@@ -71,9 +71,6 @@ $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 					fillColor: agesColor,
 					color: 'orange',
 					weight: .5, 
-					order: function(){
-						this.bringToFront(); 
-					},
 				});
 		},
 		onEachFeature: function(feature, layer){
@@ -82,10 +79,6 @@ $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 			}).addTo(map);
 });
 	 
-
-$.getJSON("ChicagoHardshipIndex.geojson", function(data){
-	L.geoJson(data).addTo(map);
-});
 
 
 </script>
