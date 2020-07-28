@@ -60,6 +60,7 @@ var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/to
 $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 	L.geoJSON(data, {
 		pointToLayer: function(feature, latlng) {
+			feature.target.bringToFront();
 			var agesColor;
 			var agesServed = feature.properties.Ages_0_3;
 			if ( agesServed == "true" ) agesColor = "blue";
@@ -70,7 +71,6 @@ $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 					fillColor: agesColor,
 					color: 'orange',
 					weight: .5, 
-					bringToFront = TRUE,
 				});
 		},
 		onEachFeature: function(feature, layer){
