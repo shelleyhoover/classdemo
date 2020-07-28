@@ -56,6 +56,10 @@ var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/to
 	ext: 'png'
 }).addTo(map);
 
+$.getJSON("ChicagoHardshipIndex.geojson", function(data){
+	L.geoJson(data).addTo(map);
+});	
+
 // load Chicago ELC GeoJSON File
 $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 	L.geoJSON(data, {
@@ -78,9 +82,6 @@ $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 			}).addTo(map);
 });
 				
-$.getJSON("ChicagoHardshipIndex.geojson", function(data){
-	L.geoJson(data).addTo(map);
-});
 
 
 // $.getJSON("ChicagoHardshipIndex.geojson",function(data){
