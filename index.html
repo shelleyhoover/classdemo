@@ -78,11 +78,11 @@ $.getJSON("EarlyLearningPrograms_Chicago.geojson",function(data){
 			}).addTo(map);
 		});
 				
-$.getJSON("ChicagoHardshipIndex.geojson", function(data){
-	L.geoJson(data {
-			style: function(feature){
-			var conditionalColor;
-			var hardship = feature.properties.HI; 
+$.getJSON("ChicagoHardshipIndex.geojson",function(data){
+  	L.geoJson(data, {
+		style: function(feature){
+			var conditionalColor,
+			hardship = feature.properties.HI;
 				if ( hardship > 80 ) conditionalColor = "#006837";
 				else if ( hardship > 60 ) conditionalColor = "#31a354";
 				else if ( hardship > 40 ) conditionalColor = "#78c679";
@@ -92,15 +92,13 @@ $.getJSON("ChicagoHardshipIndex.geojson", function(data){
 				return { 	color: "#999", 
 							weight: 1, 
 							fillColor: conditionalColor, 
-							fillOpacity: .6, };
-		},
-		onEachFeature: function( feature, layer ){
+							fillOpacity: .6 };
+				},
+				onEachFeature: function( feature, layer ){
 				    layer.bindPopup( "Neighborhood: " + feature.properties.CA + "<br/>" + "Hardship Index Score: " + feature.properties.HI )
 				}
-	}).addTo(map).bringToBack();		
-});
-
-
+  					}  ).addTo(map).bringToBack();
+				}); 
 </script>
 
 </div>
