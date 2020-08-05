@@ -79,7 +79,18 @@ $.getJSON("redlinextensionwstations.geojson",function(data){
 
 
 $.getJSON("CTARailLines.geojson",function(data){
-	L.geoJSON(data).addTo(map).bringToBack();
+	L.geoJSON(data, {
+		style: function(feature) {
+			var legendColor,
+		 	legcta = feature.properties.LEGEND;
+				if ( legcta == "RD" ) legendColor = "red";
+				else legendColor = "blue";
+				return{  color: "999", 
+					weight: 3,
+					color: legendColor,
+				};
+  					}
+				}).addTo(map).bringToBack();
 			}); 
 
 
