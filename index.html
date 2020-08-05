@@ -77,19 +77,8 @@ $.getJSON("redlinextensionwstations.geojson",function(data){
 			}).addTo(map);
 });
 
-		$.getJSON("CTARailLines.geojson",function(data){
-  		L.geoJson(data, {
-		style: function(feature){
-			var conditionalColor,
-			Line = feature.properties.LEGEND;
-				if (LINE=="RD") conditionalColor = "red"
-				else  conditionalColor = "blue";
-				}
 
-		}  ).addTo(map).bringToBack();
-		}); 
-
-$.getJSON("CTA_RailLines.geojson",function(data){
+$.getJSON("CTARailLines.geojson",function(data){
 	L.geoJSON(data, {
 		style: function(feature) {
 			var legendColor,
