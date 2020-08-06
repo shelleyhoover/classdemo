@@ -1,30 +1,32 @@
- body {
-	text-align: center;
-	background-color: blue;color: black;
-	position: relative;
-	font-family: 'IM Fell English SC', serif;
-	height: 300px;
-	width: 600px;
+.intro {
+	width: 500px;
 	margin: auto;
-	
-
-} 
+}
 
 .intro h1 {
-	font-family: 'IM Fell English SC', serif;
-	text-align: center;
-	font-size: 30pt;
-} 
 
-.intro h3 {
-	font-family: 'IM Fell English SC', serif;
+	font-family:'tahoma' , sans-serif;
 	text-align: center;
-	font-size: 17pt;
+	font-size: 20pt;
+}
+
+
+.intro h2 {
+	font-family: 'tahoma' , sans-serif;
+	text-align: center;
+	font-size: 14pt;
+}
+
+.program-intro {
+	font-family: 'courier' , serif;
+	text-align: left;
+	font-size: 11pt;
+	width: 800px;
+	margin: auto;
 }
 
 #map {
-	width: 600px;
+	width: 800px;
 	height: 600px;
 	margin: auto;
 }
-

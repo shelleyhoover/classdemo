@@ -1,3 +1,6 @@
-# GEOJSON
-GEOJSON
-First try at using GEOJSONs.
+# project2
+This webpage was completed for Project 2 of UPP 465. The map shows hardship index by Chicago Community Area as well as grocery stroe locations.
+
+This webpage shows “Grocery Stores and Hardship Index by Chicago Community Area”. The geographic extent is the City of Chicago. By looking at hardship index (HI) and the location of grocery stores by Chicago Community Area (CCA), I sought to visualize any possible correlation among HI and access to grocery stores. I have learned about food deserts and lack of access to grocery stores in underserved CCAs, and so I thought it would be interesting to see if the number/location of grocery stores showed a disparity among low HI and high HI CCAs. Obviously, more intensive analyses would have to be run to quantify any correlation of statistical significance, but visualizing from the map is a good first look at the issue.
+The webmap index and css codes were modelled after an in-class demonstration provided by instructor Shelley Hoover, and created using sublime text. The web map was developed using a leaflet basemap and adding City of Chicago geojson data provided for the course assignment. 
+The purpose of this project is to test out coding for creating and styling a webpage and developing an online map with JavaScript.

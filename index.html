@@ -2,101 +2,119 @@
 <html>
 
 <head>
-<title>UPP 465 Hankins</title>
-<link rel="stylesheet" href="style.css"> 
-<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap" rel="stylesheet"> 
+<title>Grocery Hardship</title>
+<link rel="stylesheet" href="style.css">
+<!--font...>-->
 
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+<!--leaflet CSS info copied and pasted from https://leafletjs.com/examples/quick-start/-->
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
    crossorigin=""/>
 
-<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+ <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-   crossorigin=""></script>
+   crossorigin=""></script> 
 
-   
+<!--leaflet provider info for basemap-->
+ <!-- already copied this part, but newer, above
+  <script src="http://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script> 
+ -->
   <script src="js/leaflet-providers.js"></script>
 
-
-<script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script> 
+  <!--add GeoJSON data, JQuery and ajax-->
+  <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 
 </head>
 
-
 <body>
-	<img src="RLT.jpg" width="500" height="450"> 
 
-<div class = "title">
-<h1>South Chicago and Rail Service</h1>
-<h3>A look into two proposed Red Line Extension</h3>
+	<div class = "intro">
+		<h1>Grocery Stores and Hardship Index</h1>
+		<h2>by Chicago Community Area</h2>
 
+	</div>
 
-</div>
+	<!--here is a description of the program that introduces the map. have to add target="_blank" to make link open in new tab.-->
 
-<!--Shortly explains the project and map-->
-<div class = "Rail projects">
-	<p> The proposed Red Line Extension(RLE) would add 5.3 miles of rail to the south side of Chicago </p>
-	<p> For more information about the Red Line Extension, click <a href="https://www.transitchicago.com/redext/" target="_blank">here</a></p> 
-	
-	
-</div>
+	<div class = "program-intro">
+		<p>This map was created by a student for a Web GIS course. It displays Chicago Community Areas, color coded by Hardship Index, with grocery store locations and names indicated by points.</p>
+		<p> Read about food deserts <a href="https://www.ers.usda.gov/webdocs/publications/45014/30940_err140.pdf" target="_blank" >here</a>.</p>
+	</div>
 
+	<div id = "map"><!--using leaflet here instead of embeding AGOL map--></div>
 
-<div id= "map"></div>
+	<script>
+	//now I'm doing javascript. commenting is done with "//"" instead of "<!--"
+	//initialize leaflet map
+	var map = L.map('map').setView([41.991, -87.936],10);
 
-<script>
-		
-var map = L.map('map').setView([41.86, -87.66],10);
-
-var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
-	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	//add base layer--copied and pasted from https://leaflet-extras.github.io/leaflet-providers/preview/. don't forget ".addTo(map);" at end!
+	var CartoDB_Voyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 	subdomains: 'abcd',
-	minZoom: 0,
-	maxZoom: 20,
-	ext: 'png'
-}).addTo(map);
+	maxZoom: 19
+	}).addTo(map) ;
 
-
-$.getJSON("redlinextensionwstations.geojson",function(data){
-	L.geoJSON(data, {
-		pointToLayer: function(feature, latlng) {
+	//add Grocery data
+	$.getJSON("GroceryStoresChicago.geojson", function(data){
+		L.geoJson(data, {
+			pointToLayer: function(feature, latlng) {
+			var conditionalSize;
+			var storeSize = feature.properties.SQUARE_FEET;
+			if ( storeSize > 50000 ) conditionalSize = 6;
+			else if ( storeSize >  30000 ) conditionalSize = 5;
+			else if ( storeSize >  10000 ) conditionalSize = 4;
+			else if ( storeSize >  5000 ) conditionalSize = 3;
+			else if ( storeSize > 1 ) conditionalSize = 2;
+			else conditionalSize = 1;
 			return new L.CircleMarker(latlng, 
-				{	radius:6,
-					fillOpacity: .5,
-					fillColor: 'red',
-					color: 'red',
-					weight: 1, 
+				{	radius: conditionalSize,
+					fillOpacity: 1,
+					fillColor: "blue",
+					color: 'orange',
+					weight: .5, 
 				});
+		
+			}, onEachFeature: function(feature, layer){
+				layer.bindPopup(feature.properties.STORE_NAME)
+			}
 
-		}, onEachFeature: function(feature, layer){
-			layer.bindPopup( "<strong>"+ "Station:"+ feature.properties.LONGNAME+ "</strong><br/>"+feature.properties.ADDRESS)
-		}
-			}).addTo(map);
-});
+				}).addTo(map);
+		});
 
 
-$.getJSON("CTARailLines.geojson",function(data){
-	L.geoJSON(data, {
+	//add Hardship data
+	$.getJSON("ChicagoHardshipIndex.geojson", function(data){
+		L.geoJson(data, {
 		style: function(feature) {
-			var legendColor,
-		 	legcta = feature.properties.LEGEND;
-				if ( legcta == "RD" ) legendColor = "red";
-				else legendColor = "blue";
-				return{  color: "999", 
-					weight: 3,
-					color: legendColor,
-				};
-  					}
-				}).addTo(map).bringToBack();
-			}); 
+				var conditionalColor,
+				hardship = feature.properties.HI;
+					if ( hardship > 80 ) conditionalColor = "#FF3222";
+					else if ( hardship > 60 ) conditionalColor = "#FF7122";
+					else if ( hardship > 40 ) conditionalColor = "#DFAC00" ;
+					else if ( hardship > 20 ) conditionalColor = "#879F00";
+					else if ( hardship > 0  ) conditionalColor = "#4E8000"; 
+					else conditionalColor = "#f7f7f7" ;  //no data
+					return { color: "#999" ,
+						weight: 1,
+						fillColor: conditionalColor,
+						fillOpacity: .6 };
+		},
+			onEachFeature: function(feature, layer ) {
+				layer.bindPopup( "Neighborhood: " + feature.properties.CA + "<br/>" + "Hardship Index Score: " + feature.properties.HI)
+			}
+		}).addTo(map).bringToBack();
 
+	});
 
 </script>
 
+</div>
 
 </body>
 
 </html>
+
+
